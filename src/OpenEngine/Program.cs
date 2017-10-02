@@ -4,6 +4,7 @@
     {
         public static void Main(string[] args)
         {
+            // Debug.HideConsole();
             const double updateCalls = 60;
             const double fps = 60;
             new Game(1280, 720, "Game")
