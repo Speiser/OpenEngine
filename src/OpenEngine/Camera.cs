@@ -12,12 +12,16 @@ namespace OpenEngine
             this.Position = postion;
             this.Zoom = startZoom;
             this.Rotation = startRotation;
+            this.ZNear = 0f;
+            this.ZFar = 1f;
         }
 
         public Color SkyboxColor { get; set; } = Color.DimGray;
         public Vector2 Position { get; set; }
         public float Rotation { get; set; }
         public float Zoom { get; set; }
+        public float ZNear { get; set; }
+        public float ZFar { get; set; }
 
         public void ApplyTransform()
         {

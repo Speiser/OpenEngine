@@ -8,30 +8,27 @@ using GLPixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
 namespace OpenEngine
 {
-    public struct Texture2D
+    public struct Texture2D : IComponent
     {
         public Texture2D(int id, int width, int height)
         {
             this.ID = id;
             this.Width = width;
             this.Height = height;
+            this.Color = Color.Transparent;
         }
 
         public int ID { get; }
         public int Width { get; }
         public int Height { get; }
+        public Color Color { get; set; }
 
         public void Draw(Vector2 offset)
         {
-            this.Draw(Vector2.Zero, Vector2.One, offset);
+            this.Draw(Vector2.One, offset);
         }
 
-        public void Draw(Vector2 position, Vector2 scale, Vector2 offset)
-        {
-            this.Draw(position, scale, offset, Color.Transparent);
-        }
-
-        public void Draw(Vector2 position, Vector2 scale, Vector2 offset, Color color)
+        public void Draw(Vector2 scale, Vector2 offset)
         {
             var vertices = new[]
             {
@@ -44,7 +41,7 @@ namespace OpenEngine
             GL.BindTexture(TextureTarget.Texture2D, this.ID);
             GL.Begin(PrimitiveType.Quads);
 
-            GL.Color3(color);
+            GL.Color3(this.Color);
 
             for (var i = 0; i < vertices.Length; i++)
             {
@@ -53,7 +50,6 @@ namespace OpenEngine
                 vertices[i].Y *= this.Height;
                 vertices[i] -= offset;
                 vertices[i] *= scale;
-                vertices[i] += position;
 
                 GL.Vertex2(vertices[i]);
             }
