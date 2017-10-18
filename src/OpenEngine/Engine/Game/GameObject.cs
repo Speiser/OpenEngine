@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace OpenEngine
 {
@@ -11,6 +12,7 @@ namespace OpenEngine
         }
 
         public string Name { get; set; } = "GameObject";
+        public Action<GameObject> UpdateAction { get; set; }
         public Transform Transform { get; set; }
         public List<IComponent> Components { get; private set; }
 
@@ -24,7 +26,8 @@ namespace OpenEngine
             return new GameObject
             {
                 Name = this.Name,
-                Transform = this.Transform,
+                UpdateAction = this.UpdateAction,
+                Transform = this.Transform.Clone(),
                 Components = this.Components
             };
         }
@@ -37,6 +40,11 @@ namespace OpenEngine
                     return (T)component;
             }
             return default(T);
+        }
+
+        public void Update()
+        {
+            this.UpdateAction?.Invoke(this);
         }
     }
 }
