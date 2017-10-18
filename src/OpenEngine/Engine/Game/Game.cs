@@ -7,10 +7,19 @@ using System.Linq;
 
 namespace OpenEngine
 {
+    /// <summary>
+    /// The <see cref="Game"/> class.
+    /// </summary>
     public class Game : GameWindow
     {
         private int _frameCount;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Game"/> class.
+        /// </summary>
+        /// <param name="width">Width of the game window.</param>
+        /// <param name="height">Height of the game window.</param>
+        /// <param name="title">Title of the game window.</param>
         public Game(int width, int height, string title) : base(width, height)
         {
             GameState.Camera = new Camera();
@@ -24,7 +33,7 @@ namespace OpenEngine
         {
             base.OnLoad(e);
 
-#region NON ENGINE PART
+            #region NON ENGINE PART
             var floorTexture = Texture2D.LoadTexture("Floor.jpg");
             var floorTemplate = new GameObject();
             floorTemplate.AddComponent(floorTexture);
@@ -55,12 +64,11 @@ namespace OpenEngine
             // Enable Textures
             GL.Enable(EnableCap.Texture2D);
         }
-
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
 
-            this.HandleInput();
+            HandleInput();
 
             if (_frameCount == 30)
             {
@@ -74,7 +82,6 @@ namespace OpenEngine
 
             _frameCount++;
         }
-
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             base.OnRenderFrame(e);
@@ -102,8 +109,7 @@ namespace OpenEngine
                  GameState.Camera.ZNear,
                  GameState.Camera.ZFar);
         }
-
-        private void HandleInput()
+        private static void HandleInput()
         {
             if (Input.KeyDown(Key.W)) GameState.Camera.Move(new Vector2(0, -1));
             if (Input.KeyDown(Key.A)) GameState.Camera.Move(new Vector2(-1, 0));

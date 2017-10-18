@@ -28,7 +28,6 @@ namespace OpenEngine
 
             return false;
         }
-
         public static void Log(object obj)
         {
             if (_isCmdHidden) return;

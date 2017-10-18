@@ -8,8 +8,17 @@ using GLPixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 
 namespace OpenEngine
 {
+    /// <summary>
+    /// The <see cref="Texture2D"/> class.
+    /// </summary>
     public struct Texture2D : IComponent
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Texture2D"/> class.
+        /// </summary>
+        /// <param name="id">ID of the texture.</param>
+        /// <param name="width">Width of the texture.</param>
+        /// <param name="height">Height of the texture.</param>
         public Texture2D(int id, int width, int height)
         {
             this.ID = id;
@@ -18,16 +27,36 @@ namespace OpenEngine
             this.Color = Color.Transparent;
         }
 
+        /// <summary>
+        /// Gets the ID of the texture.
+        /// </summary>
         public int ID { get; }
+        /// <summary>
+        /// Gets the width of the texture.
+        /// </summary>
         public int Width { get; }
+        /// <summary>
+        /// Gets the height of the texture.
+        /// </summary>
         public int Height { get; }
+        /// <summary>
+        /// Gets or sets the color of the texture (color overlay),
+        /// </summary>
         public Color Color { get; set; }
 
+        /// <summary>
+        /// Draws the texture.
+        /// </summary>
+        /// <param name="offset">Offset/Position of the texture.</param>
         public void Draw(Vector2 offset)
         {
             this.Draw(Vector2.One, offset);
         }
-
+        /// <summary>
+        /// Draws the texture.
+        /// </summary>
+        /// <param name="scale">Scale of the texture.</param>
+        /// <param name="offset">Offset/Position of the texture.</param>
         public void Draw(Vector2 scale, Vector2 offset)
         {
             var vertices = new[]
@@ -57,6 +86,11 @@ namespace OpenEngine
             GL.End();
         }
 
+        /// <summary>
+        /// Loads a texture from a specified file and returns it.
+        /// </summary>
+        /// <param name="file">Specified file.</param>
+        /// <returns>A texture from a specified file.</returns>
         public static Texture2D LoadTexture(string file)
         {
             if (!File.Exists("Textures/" + file))

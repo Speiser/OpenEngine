@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Exceptions\ComponentNotFoundException.cs" />
     <Compile Include="Engine\Debug.cs" />
     <Compile Include="Engine\Extensions.cs" />
     <Compile Include="Engine\Game\Game.cs" />
@@ -74,5 +75,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
