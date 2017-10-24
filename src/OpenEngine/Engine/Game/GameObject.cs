@@ -13,10 +13,11 @@ namespace OpenEngine
         /// <summary>
         /// Initializes a new instance of the <see cref="GameObject"/> class.
         /// </summary>
-        public GameObject()
+        public GameObject(Action<GameObject> startAction = null)
         {
             _components = new List<IComponent>();
             this.Transform = new Transform();
+            startAction?.Invoke(this);
         }
         /// <summary>
         /// Internal ctor for cloning.
@@ -72,8 +73,8 @@ namespace OpenEngine
             foreach (var component in _components)
             {
                 // ReSharper disable once MergeCastWithTypeCheck
-                if (component is T)
-                    return (T)component;
+                if (component is T foundComponent)
+                    return foundComponent;
             }
             
             throw new ComponentNotFoundException($"The specified component of type {typeof(T)}" + 
