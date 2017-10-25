@@ -37,7 +37,6 @@ namespace OpenEngine
             var floorTexture = Texture2D.LoadTexture("Floor.jpg");
             var floorTemplate = new GameObject();
             floorTemplate.AddComponent(floorTexture);
-            floorTemplate.UpdateAction = obj => obj.GetComponent<Texture2D>().Draw(obj.Transform.Position);
 
             for (int i = -1000; i < 1001; i += 100)
             {
@@ -45,6 +44,7 @@ namespace OpenEngine
                 {
                     var obj = floorTemplate.Clone();
                     obj.Transform.Position = new Vector2(i, j);
+                    obj.AddComponent(new FloorBehaviour(obj));
                     GameState.GameObjects.Add(obj);
                 }
             }
@@ -52,11 +52,7 @@ namespace OpenEngine
             // Player
             var player = new GameObject();
             player.AddComponent(Texture2D.LoadTexture("Player.jpg"));
-            player.UpdateAction = obj =>
-            {
-                obj.Transform.Position = GameState.Camera.Position;
-                obj.GetComponent<Texture2D>().Draw(-obj.Transform.Position);
-            };
+            player.AddComponent(new PlayerBehaviour(player));
 
             GameState.GameObjects.Add(player);
             #endregion

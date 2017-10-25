@@ -11,6 +11,11 @@ namespace OpenEngine
         private readonly List<IComponent> _components;
 
         /// <summary>
+        /// Cached behavior for "better" performance.
+        /// </summary>
+        private Behaviour _behaviour;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GameObject"/> class.
         /// </summary>
         public GameObject(Action<GameObject> startAction = null)
@@ -22,9 +27,10 @@ namespace OpenEngine
         /// <summary>
         /// Internal ctor for cloning.
         /// </summary>
-        internal GameObject(List<IComponent> components)
+        internal GameObject(List<IComponent> components, Behaviour behaviour)
         {
             _components = components;
+            _behaviour = behaviour;
         }
 
         /// <summary>
@@ -47,13 +53,17 @@ namespace OpenEngine
         public void AddComponent(IComponent component)
         {
             _components.Add(component);
+            if (component is Behaviour behaviour)
+            {
+                _behaviour = behaviour;
+                _behaviour.Start();
+            }
         }
         /// <summary>
         /// Creates a copy of the game object and returns it.
         /// </summary>
         /// <returns>A copy of the game object.</returns>
-        public GameObject Clone()
-            => new GameObject(_components)
+        public GameObject Clone() => new GameObject(_components, _behaviour)
                {
                    Name = this.Name,
                    UpdateAction = this.UpdateAction,
@@ -86,7 +96,7 @@ namespace OpenEngine
         /// </summary>
         public void Update()
         {
-            this.UpdateAction?.Invoke(this);
+            _behaviour?.Update();
         }
     }
 }
