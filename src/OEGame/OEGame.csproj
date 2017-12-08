@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{49853868-080B-4CAC-9564-F381885727E0}</ProjectGuid>
+    <ProjectGuid>{1D29F553-95EA-45BF-A917-90CB70ED8572}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TestGame</RootNamespace>
-    <AssemblyName>TestGame</AssemblyName>
+    <RootNamespace>OEGame</RootNamespace>
+    <AssemblyName>OEGame</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,9 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\FloorBehaviour.cs" />
-    <Compile Include="Behaviours\PlayerBehaviour.cs" />
-    <Compile Include="Behaviours\MyGameBehaviour.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -57,16 +54,6 @@
       <Project>{8e3ee965-7521-46b4-8b58-32b3062d4e04}</Project>
       <Name>OpenEngine</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Textures\Floor.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Textures\Player.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,4 @@
 ﻿using OpenEngine;
-using OpenTK;
-using OpenTK.Input;
 
 namespace TestGame
 {
@@ -18,7 +16,7 @@ namespace TestGame
                 for (int j = -1000; j < 1001; j += 100)
                 {
                     var obj = floorTemplate.Clone();
-                    obj.Transform.Position = new Vector2(i, j);
+                    obj.Transform.Position = new Vector2D(i, j);
                     obj.AddComponent(new FloorBehaviour(obj));
                     GameState.GameObjects.Add(obj);
                 }
@@ -35,10 +33,11 @@ namespace TestGame
         public override void Update()
         {
             base.Update();
-            if (Input.KeyDown(Key.W)) GameState.Camera.Move(new Vector2(0, -3));
-            if (Input.KeyDown(Key.A)) GameState.Camera.Move(new Vector2(-3, 0));
-            if (Input.KeyDown(Key.S)) GameState.Camera.Move(new Vector2(0, 3));
-            if (Input.KeyDown(Key.D)) GameState.Camera.Move(new Vector2(3, 0));
+            Debug.Log(GameState.Camera.Position.X + ":" + GameState.Camera.Position.Y);
+            if (Input.KeyDown(Key.W)) GameState.Camera.Move(new Vector2D(0, -3));
+            if (Input.KeyDown(Key.A)) GameState.Camera.Move(new Vector2D(-3, 0));
+            if (Input.KeyDown(Key.S)) GameState.Camera.Move(new Vector2D(0, 3));
+            if (Input.KeyDown(Key.D)) GameState.Camera.Move(new Vector2D(3, 0));
         }
     }
 }

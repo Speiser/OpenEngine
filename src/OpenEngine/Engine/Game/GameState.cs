@@ -9,7 +9,7 @@ namespace OpenEngine
 
         public static void Start()
         {
-            Camera = new Camera();
+            Camera = new Camera(Vector2D.Zero);
             GameObjects = new List<GameObject>();
         }
 

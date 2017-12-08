@@ -1,4 +1,6 @@
-﻿namespace OpenEngine
+﻿using OpenTK;
+
+namespace OpenEngine
 {
     public static class Extensions
     {
@@ -7,5 +9,8 @@
             return text.Replace(".jpg", string.Empty)
                        .Replace(".png", string.Empty);
         }
+
+        public static Vector2 ToVector2(this Vector2D v)
+            => new Vector2(v.X, v.Y);
     }
 }

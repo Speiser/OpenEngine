@@ -14,7 +14,7 @@
         public override void Update()
         {
             Object.Transform.Position = GameState.Camera.Position;
-            _texture.Draw(-Object.Transform.Position);
+            _texture.Draw(new Vector2D(-Object.Transform.Position.X, -Object.Transform.Position.Y));
         }
     }
 }

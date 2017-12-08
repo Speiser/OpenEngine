@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using OpenTK;
 using OpenTK.Input;
+using OKey = OpenTK.Input.Key;
 
 namespace OpenEngine
 {
     public static class Input
     {
-        private static List<Key> _keys;
-        private static List<Key> _keysLast;
+        private static List<OKey> _keys;
+        private static List<OKey> _keysLast;
 
         private static List<MouseButton> _btns;
         private static List<MouseButton> _btnsLast;
 
         public static void Start(GameWindow window)
         {
-            _keys = new List<Key>();
-            _keysLast = new List<Key>();
+            _keys = new List<OKey>();
+            _keysLast = new List<OKey>();
 
             _btns = new List<MouseButton>();
             _btnsLast = new List<MouseButton>();
@@ -29,13 +30,13 @@ namespace OpenEngine
 
         public static void Update()
         {
-            _keysLast = new List<Key>(_keys);
+            _keysLast = new List<OKey>(_keys);
             _btnsLast = new List<MouseButton>(_btns);
         }
 
-        public static bool KeyPress(Key key) => _keys.Contains(key) && !_keysLast.Contains(key);
-        public static bool KeyRelease(Key key) => !_keys.Contains(key) && _keysLast.Contains(key);
-        public static bool KeyDown(Key key) => _keys.Contains(key);
+        public static bool KeyPress(Key key) => _keys.Contains((OKey)key) && !_keysLast.Contains((OKey)key);
+        public static bool KeyRelease(Key key) => !_keys.Contains((OKey)key) && _keysLast.Contains((OKey)key);
+        public static bool KeyDown(Key key) => _keys.Contains((OKey)key);
 
         public static bool MouseButtonPress(MouseButton btn) => _btns.Contains(btn) && !_btnsLast.Contains(btn);
         public static bool MouseButtonRelease(MouseButton btn) => !_btns.Contains(btn) && _btnsLast.Contains(btn);
