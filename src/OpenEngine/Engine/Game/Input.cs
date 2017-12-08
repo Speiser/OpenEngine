@@ -12,7 +12,7 @@ namespace OpenEngine
         private static List<MouseButton> _btns;
         private static List<MouseButton> _btnsLast;
 
-        public static void Init(GameWindow window)
+        public static void Start(GameWindow window)
         {
             _keys = new List<Key>();
             _keysLast = new List<Key>();

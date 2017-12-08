@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8E3EE965-7521-46B4-8B58-32B3062D4E04}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>OpenEngine</RootNamespace>
-    <AssemblyName>OpenEngine</AssemblyName>
+    <ProjectGuid>{49853868-080B-4CAC-9564-F381885727E0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TestGame</RootNamespace>
+    <AssemblyName>TestGame</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,16 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=3.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>..\packages\OpenTK.3.0.0-pre\lib\net20\OpenTK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,26 +46,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Engine\Components\Behaviour.cs" />
-    <Compile Include="Engine\Exceptions\ComponentNotFoundException.cs" />
-    <Compile Include="Engine\Debug.cs" />
-    <Compile Include="Engine\Extensions.cs" />
-    <Compile Include="Engine\Game\Game.cs" />
-    <Compile Include="Engine\Game\GameBehaviour.cs" />
-    <Compile Include="Engine\Game\GameObject.cs" />
-    <Compile Include="Engine\Components\IComponent.cs" />
-    <Compile Include="Engine\Game\Input.cs" />
-    <Compile Include="Engine\Game\GameState.cs" />
+    <Compile Include="Behaviours\FloorBehaviour.cs" />
+    <Compile Include="Behaviours\PlayerBehaviour.cs" />
+    <Compile Include="Behaviours\MyGameBehaviour.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Engine\Components\Texture2D.cs" />
-    <Compile Include="Engine\Game\Camera.cs" />
-    <Compile Include="Engine\Game\Transform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\OpenEngine\OpenEngine.csproj">
+      <Project>{8e3ee965-7521-46b4-8b58-32b3062d4e04}</Project>
+      <Name>OpenEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Textures\Floor.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Textures\Player.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

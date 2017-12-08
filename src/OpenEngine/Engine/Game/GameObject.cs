@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OpenEngine
 {
@@ -18,11 +17,10 @@ namespace OpenEngine
         /// <summary>
         /// Initializes a new instance of the <see cref="GameObject"/> class.
         /// </summary>
-        public GameObject(Action<GameObject> startAction = null)
+        public GameObject()
         {
             _components = new List<IComponent>();
             this.Transform = new Transform();
-            startAction?.Invoke(this);
         }
         /// <summary>
         /// Internal ctor for cloning.
@@ -37,10 +35,6 @@ namespace OpenEngine
         /// Gets or sets the name of the game object.
         /// </summary>
         public string Name { get; set; } = "GameObject";
-        /// <summary>
-        /// Gets or sets the action that will be called once every second.
-        /// </summary>
-        public Action<GameObject> UpdateAction { get; set; }
         /// <summary>
         /// Gets or sets the transform of the game object.
         /// </summary>
@@ -66,7 +60,6 @@ namespace OpenEngine
         public GameObject Clone() => new GameObject(_components, _behaviour)
                {
                    Name = this.Name,
-                   UpdateAction = this.UpdateAction,
                    Transform = this.Transform.Clone(),
                };
         /// <summary>
@@ -92,7 +85,6 @@ namespace OpenEngine
         }
         /// <summary>
         /// Invoked once every frame.
-        /// Invokes <see cref="UpdateAction"/>.
         /// </summary>
         public void Update()
         {
