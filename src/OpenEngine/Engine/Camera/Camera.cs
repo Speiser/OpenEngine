@@ -5,15 +5,15 @@ using OpenTK.Graphics.OpenGL;
 
 namespace OpenEngine
 {
-    public class Camera
+    public class Camera : ICamera
     {
-        public Camera(Vector2D postion, float startZoom = 1.0f, float startRotation = 0)
+        public Camera(Vector2D postion, float startZoom = 1.0f, float startRotation = 0, float zNear = 0, float zFar = 1)
         {
             this.Position = postion;
             this.Zoom = startZoom;
             this.Rotation = startRotation;
-            this.ZNear = 0f;
-            this.ZFar = 1f;
+            this.ZNear = zNear;
+            this.ZFar = zFar;
         }
 
         public Color SkyboxColor { get; set; } = Color.DimGray;
@@ -48,8 +48,7 @@ namespace OpenEngine
 
         public void Move(Vector2D vec)
         {
-            this.Position.X += vec.X;
-            this.Position.Y += vec.Y;
+            this.Position += vec;
         }
     }
 }

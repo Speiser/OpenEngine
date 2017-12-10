@@ -19,7 +19,7 @@ namespace OpenEngine
         public Game(int width, int height, string title, GameBehaviour behaviour) : base(width, height)
         {
             Behaviour = behaviour;
-            GameState.Start();
+            GameState.Start(new Camera(Vector2D.Zero));
             Input.Start(this);
 
             base.Title = title;
