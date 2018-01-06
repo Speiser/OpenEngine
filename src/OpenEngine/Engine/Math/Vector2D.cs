@@ -16,6 +16,6 @@
 
         public static Vector2D operator +(Vector2D a, Vector2D b) => new Vector2D(a.X + b.X, a.Y + b.Y);
         public static Vector2D operator -(Vector2D a, Vector2D b) => new Vector2D(a.X - b.X, a.Y - b.Y);
-        public static Vector2D operator *(Vector2D a, float b) => new Vector2D(a.X + b, a.Y + b);
+        public static Vector2D operator *(Vector2D a, float b) => new Vector2D(a.X * b, a.Y * b);
     }
 }
