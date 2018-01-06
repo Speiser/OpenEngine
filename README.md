@@ -1,6 +1,7 @@
 # OpenEngine
 - **This is a WIP prototype!**  
 - **Expect API changes**
+- **This is a side project**
 
 ## Installation
 Clone and build
