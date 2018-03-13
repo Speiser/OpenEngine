@@ -16,10 +16,11 @@ namespace OpenEngine
         /// <param name="height">Height of the game window.</param>
         /// <param name="title">Title of the game window.</param>
         /// <param name="behaviour">The game behaviour.</param>
-        public Game(int width, int height, string title, GameBehaviour behaviour) : base(width, height)
+        /// <param name="camera">Main camera.</param>
+        public Game(int width, int height, string title, GameBehaviour behaviour, ICamera camera = null) : base(width, height)
         {
-            Behaviour = behaviour;
-            GameState.Start(new Camera(Vector2D.Zero));
+            this.Behaviour = behaviour;
+            GameState.Start(camera ?? new Camera(Vector2D.Zero));
             Input.Start(this);
 
             base.Title = title;
@@ -31,7 +32,7 @@ namespace OpenEngine
         {
             base.OnLoad(e);
 
-            Behaviour.Start();
+            this.Behaviour.Start();
 
             // Enable Textures
             GL.Enable(EnableCap.Texture2D);
@@ -40,7 +41,7 @@ namespace OpenEngine
         {
             base.OnUpdateFrame(e);
 
-            Behaviour.Update();
+            this.Behaviour.Update();
         }
         protected override void OnRenderFrame(FrameEventArgs e)
         {
@@ -55,6 +56,7 @@ namespace OpenEngine
             GameState.Update();
 
             this.SwapBuffers();
+            this.Behaviour.Render();
         }
 
         private void InitRenderFrame()

@@ -16,7 +16,7 @@
         /// <param name="obj">The behaviour´s game object.</param>
         protected Behaviour(GameObject obj)
         {
-            Object = obj;
+            this.Object = obj;
         }
 
         /// <summary>
