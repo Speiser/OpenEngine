@@ -45,6 +45,13 @@ namespace OpenEngine
         public Color Color { get; set; }
 
         /// <summary>
+        /// Draws the texture with no offset and normal scale.
+        /// </summary>
+        public void Draw()
+        {
+            this.Draw(Vector2.Zero);
+        }
+        /// <summary>
         /// Draws the texture.
         /// </summary>
         /// <param name="offset">Offset/Position of the texture.</param>
