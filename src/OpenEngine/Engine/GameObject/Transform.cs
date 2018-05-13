@@ -1,15 +1,17 @@
-﻿namespace OpenEngine
+﻿using OpenTK;
+
+namespace OpenEngine
 {
     public class Transform
     {
-        public Vector2D Position { get; set; } = Vector2D.Zero;
-        public Vector2D Scale { get; set; } = Vector2D.One;
+        public Vector2 Position { get; set; } = Vector2.Zero;
+        public Vector2 Scale { get; set; } = Vector2.One;
 
         public Transform Clone()
             => new Transform
             {
-                Position = new Vector2D(this.Position.X, this.Position.Y),
-                Scale = new Vector2D(this.Scale.X, this.Scale.Y)
+                Position = new Vector2(this.Position.X, this.Position.Y),
+                Scale = new Vector2(this.Scale.X, this.Scale.Y)
             };
     }
 }

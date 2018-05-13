@@ -48,16 +48,16 @@ namespace OpenEngine
         /// Draws the texture.
         /// </summary>
         /// <param name="offset">Offset/Position of the texture.</param>
-        public void Draw(Vector2D offset)
+        public void Draw(Vector2 offset)
         {
-            this.Draw(Vector2D.One, offset);
+            this.Draw(Vector2.One, offset);
         }
         /// <summary>
         /// Draws the texture.
         /// </summary>
         /// <param name="scale">Scale of the texture.</param>
         /// <param name="offset">Offset/Position of the texture.</param>
-        public void Draw(Vector2D scale, Vector2D offset)
+        public void Draw(Vector2 scale, Vector2 offset)
         {
             var vertices = new[]
             {
@@ -77,8 +77,8 @@ namespace OpenEngine
                 GL.TexCoord2(vertices[i]);
                 vertices[i].X *= this.Width;
                 vertices[i].Y *= this.Height;
-                vertices[i] -= offset.ToVector2();
-                vertices[i] *= scale.ToVector2();
+                vertices[i] -= offset;
+                vertices[i] *= scale;
 
                 GL.Vertex2(vertices[i]);
             }

@@ -7,7 +7,7 @@ namespace OpenEngine
 {
     public class Camera : ICamera
     {
-        public Camera(Vector2D postion, float startZoom = 1.0f, float startRotation = 0, float zNear = 0, float zFar = 1)
+        public Camera(Vector2 postion, float startZoom = 1.0f, float startRotation = 0, float zNear = 0, float zFar = 1)
         {
             this.Position = postion;
             this.Zoom = startZoom;
@@ -17,7 +17,7 @@ namespace OpenEngine
         }
 
         public Color SkyboxColor { get; set; } = Color.DimGray;
-        public Vector2D Position { get; set; }
+        public Vector2 Position { get; set; }
         public float Rotation { get; set; }
         public float Zoom { get; set; }
         public float ZNear { get; set; }
@@ -39,14 +39,14 @@ namespace OpenEngine
             var dX = new Vector2((float)Math.Cos(this.Rotation), (float)Math.Sin(this.Rotation));
             var dY = new Vector2((float)Math.Cos(this.Rotation + MathHelper.PiOver2), (float)Math.Sin(this.Rotation + MathHelper.PiOver2));
 
-            return (this.Position.ToVector2() + dX * rawInput.X + dY * rawInput.Y);
+            return (this.Position + dX * rawInput.X + dY * rawInput.Y);
         }
 
         public void Update()
         {
         }
 
-        public void Move(Vector2D vec)
+        public void Move(Vector2 vec)
         {
             this.Position += vec;
         }

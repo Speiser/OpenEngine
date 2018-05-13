@@ -6,7 +6,7 @@ namespace OpenEngine
     public interface ICamera
     {
         Color SkyboxColor { get; set; }
-        Vector2D Position { get; set; }
+        Vector2 Position { get; set; }
         float Rotation { get; set; }
         float Zoom { get; set; }
         float ZNear { get; set; }
@@ -15,6 +15,6 @@ namespace OpenEngine
         void ApplyTransform();
         Vector2 ScreenToWorldCoordinates(Vector2 rawInput);
         void Update();
-        void Move(Vector2D vec);
+        void Move(Vector2 vec);
     }
 }
