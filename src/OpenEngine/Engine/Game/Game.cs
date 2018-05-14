@@ -10,7 +10,13 @@ namespace OpenEngine
     /// </summary>
     public class Game : GameWindow
     {
-        private readonly GameBehaviour behaviour;
+        /// <summary>
+        /// Singletons are bad. But I don´t see a better way around this.
+        /// </summary>
+        internal static Game Instance { get; set; }
+
+        private readonly object singletonLock = new object();
+        private readonly GameBehaviour gameBehaviour;
         private readonly List<Camera> cameras = new List<Camera>();
 
         /// <summary>
@@ -19,21 +25,31 @@ namespace OpenEngine
         /// <param name="width">Width of the game window.</param>
         /// <param name="height">Height of the game window.</param>
         /// <param name="title">Title of the game window.</param>
-        /// <param name="behaviour">The game behaviour.</param>
+        /// <param name="gameBehaviour">The game behaviour.</param>
         /// <param name="camera">Main camera.</param>
         public Game(
             int width,
             int height,
             string title,
-            GameBehaviour behaviour,
+            GameBehaviour gameBehaviour,
             Camera camera = null) : base(width, height)
         {
             this.cameras.Add(camera ?? new Camera(Vector2.Zero));
             Input.Start(this);
             this.GameObjects = new List<GameObject>();
             base.Title = title;
-            this.behaviour = behaviour;
-            this.behaviour.Game = this;
+            this.gameBehaviour = gameBehaviour;
+            this.gameBehaviour.Game = this;
+
+            lock (this.singletonLock)
+            {
+                if (Instance != null)
+                {
+                    throw new ArgumentException("Two game instances running...", nameof(Instance));
+                }
+
+                Instance = this;
+            }
         }
 
         public List<GameObject> GameObjects { get; set; }
@@ -49,7 +65,7 @@ namespace OpenEngine
 
             base.OnLoad(e);
 
-            this.behaviour.Start();
+            this.gameBehaviour.Start();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
@@ -57,7 +73,7 @@ namespace OpenEngine
             base.OnUpdateFrame(e);
 
             this.MainCamera.Update();
-            this.behaviour.Update();
+            this.gameBehaviour.Update();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -75,7 +91,7 @@ namespace OpenEngine
             Input.Update();
 
             this.SwapBuffers();
-            this.behaviour.Render();
+            this.gameBehaviour.Render();
         }
 
         private void InitRenderFrame()

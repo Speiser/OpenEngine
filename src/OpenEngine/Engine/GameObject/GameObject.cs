@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using OpenEngine.Engine.Components;
 
 namespace OpenEngine
 {
@@ -7,30 +8,40 @@ namespace OpenEngine
     /// </summary>
     public class GameObject
     {
-        private readonly List<IComponent> _components;
+        private readonly List<IComponent> components;
 
         /// <summary>
         /// Cached behavior for "better" performance.
         /// </summary>
-        private Behaviour _behaviour;
+        private Behaviour behaviour;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameObject"/> class.
         /// </summary>
         public GameObject()
         {
-            _components = new List<IComponent>();
+            this.components = new List<IComponent>();
             this.Transform = new Transform();
+            this.IsEnabled = true;
+            this.Texture = null;
+            this.behaviour = new DefaultBehaviour(this);
         }
         /// <summary>
         /// Internal ctor for cloning.
         /// </summary>
-        internal GameObject(List<IComponent> components, Behaviour behaviour)
+        private GameObject(List<IComponent> components, Behaviour behaviour)
         {
-            _components = components;
-            _behaviour = behaviour;
+            this.components = components;
+            this.behaviour = behaviour ?? new DefaultBehaviour(this);
         }
 
+        /// <summary>
+        /// If this is set and <see cref="IsEnabled"/> is true,
+        /// the texture will be rendered by <see cref="Behaviour.Render()"/>.
+        /// </summary>
+        internal Texture2D? Texture { get; set; }
+
+        public bool IsEnabled { get; set; }
         /// <summary>
         /// Gets or sets the name of the game object.
         /// </summary>
@@ -46,22 +57,39 @@ namespace OpenEngine
         /// <param name="component">A component.</param>
         public void AddComponent(IComponent component)
         {
-            _components.Add(component);
-            if (component is Behaviour behaviour)
+            this.components.Add(component);
+
+            // ReSharper disable once InconsistentNaming
+            if (component is Behaviour behaviour_)
             {
-                _behaviour = behaviour;
-                _behaviour.Start();
+                this.behaviour = behaviour_;
+                this.behaviour.Start();
+            }
+            else if (component is Texture2D texture)
+            {
+                this.Texture = texture;
             }
         }
+
         /// <summary>
         /// Creates a copy of the game object and returns it.
         /// </summary>
         /// <returns>A copy of the game object.</returns>
-        public GameObject Clone() => new GameObject(_components, _behaviour)
-               {
-                   Name = this.Name,
-                   Transform = this.Transform.Clone(),
-               };
+        public GameObject Clone()
+        {
+            if (this.behaviour is DefaultBehaviour)
+            {
+                this.behaviour = null;
+            }
+
+            return new GameObject(this.components, this.behaviour)
+            {
+                Name = this.Name,
+                Transform = this.Transform.Clone(),
+                Texture = this.Texture,
+                IsEnabled = this.IsEnabled
+            };
+        } 
         /// <summary>
         /// Gets a component of the specified type T.
         /// Returns the first component found of the type T.
@@ -73,7 +101,7 @@ namespace OpenEngine
         /// </exception>
         public T GetComponent<T>() where T : IComponent
         {
-            foreach (var component in _components)
+            foreach (var component in this.components)
             {
                 // ReSharper disable once MergeCastWithTypeCheck
                 if (component is T foundComponent)
@@ -86,9 +114,10 @@ namespace OpenEngine
         /// <summary>
         /// Invoked once every frame.
         /// </summary>
-        public void Update()
+        internal void Update()
         {
-            _behaviour?.Update();
+            this.behaviour?.Update();
+            this.behaviour?.Render();
         }
     }
 }

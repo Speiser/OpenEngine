@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Components\Behaviour.cs" />
+    <Compile Include="Engine\Components\DefaultBehaviour.cs" />
     <Compile Include="Engine\Exceptions\ComponentNotFoundException.cs" />
     <Compile Include="Engine\Debug.cs" />
     <Compile Include="Engine\Extensions.cs" />
