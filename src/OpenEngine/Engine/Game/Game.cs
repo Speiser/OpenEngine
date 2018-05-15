@@ -52,7 +52,7 @@ namespace OpenEngine
             }
         }
 
-        public List<GameObject> GameObjects { get; set; }
+        internal List<GameObject> GameObjects { get; set; }
 
         public Camera MainCamera => this.cameras[0];
 
@@ -86,8 +86,11 @@ namespace OpenEngine
             this.InitRenderFrame();
             this.MainCamera.ApplyTransform();
 
-            this.GameObjects.ForEach(x => x.Update());
-            
+            for (var i = 0; i < this.GameObjects.Count; i++)
+            {
+                this.GameObjects[i]?.Update();
+            }
+
             Input.Update();
 
             this.SwapBuffers();

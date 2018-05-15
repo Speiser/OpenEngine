@@ -13,8 +13,11 @@ namespace OpenEngine
         /// <summary>
         /// The behaviour´s game object.
         /// </summary>
-        protected GameObject GameObject;
+        protected readonly GameObject GameObject;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Behaviour"/> class.
+        /// </summary>
         protected Behaviour() { }
 
         /// <summary>
@@ -27,19 +30,22 @@ namespace OpenEngine
         }
 
         public T FindObjectOfType<T>()
-        {
-            return Game.Instance.GameObjects.OfType<T>().FirstOrDefault();
-        }
+            => Game.Instance.GameObjects.OfType<T>().FirstOrDefault();
 
         public T[] FindObjectsOfType<T>()
+            => Game.Instance.GameObjects.OfType<T>().ToArray();
+
+        public void Instantiate(GameObject obj)
         {
-            return Game.Instance.GameObjects.OfType<T>().ToArray();
+            Game.Instance.GameObjects.Add(obj);
         }
 
         /// <summary>
-        /// Called when added to the game object using <see cref="OpenEngine.GameObject.AddComponent(IComponent)"/>.
+        /// Called when added to the game object using
+        /// <see cref="OpenEngine.GameObject.AddComponent(IComponent)"/>.
         /// </summary>
         public virtual void Start() { }
+
         /// <summary>
         /// Called at each new frame.
         /// </summary>
@@ -48,6 +54,13 @@ namespace OpenEngine
         /// <summary>
         /// Called on frame render.
         /// </summary>
+        /// <DesignDesicion>
+        /// Behaviour.Render instead of the GameObject.Render!
+        /// This desicion was made since I want that the engine's user
+        /// has the ability to change (override) the render logic. This
+        /// would not be possible if rendering would happen in GameObject,
+        /// since it cannot be overwritten (so easily as in Behaviour).
+        /// </DesignDesicion>
         public virtual void Render()
         {
             if (this.GameObject == null || !this.GameObject.IsEnabled) return;
