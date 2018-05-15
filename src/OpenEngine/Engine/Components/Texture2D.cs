@@ -82,10 +82,9 @@ namespace OpenEngine
             for (var i = 0; i < vertices.Length; i++)
             {
                 GL.TexCoord2(vertices[i]);
-                vertices[i].X *= this.Width;
-                vertices[i].Y *= this.Height;
+                vertices[i].X *= this.Width * scale.X;
+                vertices[i].Y *= this.Height * scale.Y;
                 vertices[i] -= offset;
-                vertices[i] *= scale;
 
                 GL.Vertex2(vertices[i]);
             }
